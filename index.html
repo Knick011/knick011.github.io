@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brain‑Bites | Privacy Policy & app-ads.txt</title>
+  <meta name="description" content="Official Brain‑Bites privacy policy and app-ads.txt">
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --accent: #22c55e;
+      --border: #1f2937;
+      --link: #60a5fa;
+      --warning: #f59e0b;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 10% -10%, #1f2937, transparent),
+                  radial-gradient(800px 500px at 100% 0%, #0b1220, transparent),
+                  var(--bg);
+      line-height: 1.6;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 980px; margin: 0 auto; padding: 24px; }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 16px 0 8px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .logo {
+      width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg,#22c55e, #16a34a);
+      display: grid; place-items: center; color: #052e16; font-weight: 800;
+    }
+    nav a { margin-left: 16px; font-weight: 600; }
+    .cards { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 8px; }
+    @media (min-width: 900px) { .cards { grid-template-columns: 1fr 1fr; } }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      backdrop-filter: blur(6px);
+    }
+    .card h2 { margin: 0 0 8px 0; font-size: 1.2rem; }
+    .muted { color: var(--muted); font-size: 0.95rem; }
+    .inline-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .btn {
+      background: #0b1220; border: 1px solid var(--border); color: var(--text);
+      padding: 8px 12px; border-radius: 10px; cursor: pointer; font-weight: 600;
+    }
+    .btn:hover { border-color: #334155; }
+    .btn.accent { background: #052e16; border-color: #14532d; color: #a7f3d0; }
+    .notice { background: #0b1220; border: 1px dashed #334155; padding: 10px 12px; border-radius: 10px; margin: 12px 0; }
+    pre {
+      max-height: 220px; overflow: auto; padding: 12px; border-radius: 10px;
+      background: #0b1220; border: 1px solid var(--border); color: #e2e8f0; font-family: var(--mono);
+      white-space: pre-wrap; word-wrap: break-word; margin: 10px 0 0;
+    }
+    .policy { background: #0b1220; border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
+    .policy h1, .policy h2, .policy h3 { margin-top: 1.2em; }
+    footer { margin: 36px 0 12px; text-align: center; color: var(--muted); font-size: 0.9rem; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">BB</div>
+        <div>
+          <div style="font-weight:800; font-size:1.2rem;">Brain‑Bites</div>
+          <div class="muted">Official legal & monetization info</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#policy">Privacy Policy</a>
+        <a href="#ads">app‑ads.txt</a>
+      </nav>
+    </header>
+
+    <div class="cards">
+      <section id="policy" class="card">
+        <h2>Privacy Policy</h2>
+        <div class="muted">This page renders the live markdown file from this repository.</div>
+        <div class="inline-actions">
+          <a class="btn" href="./privacy-policy-github.md" target="_blank" rel="noopener">Open markdown</a>
+        </div>
+        <div id="policyContainer" class="policy" aria-live="polite">Loading privacy policy…</div>
+      </section>
+
+      <section id="ads" class="card">
+        <h2>app‑ads.txt</h2>
+        <div class="muted">Must be accessible at the domain root: <code>/app-ads.txt</code></div>
+        <div class="notice">
+          If you’re verifying with AdMob, enter this domain exactly as listed in Google Play,
+          and make sure this URL returns 200 OK: <a href="./app-ads.txt" target="_blank" rel="noopener">/app-ads.txt</a>.
+        </div>
+        <div class="inline-actions">
+          <a class="btn" href="./app-ads.txt" target="_blank" rel="noopener">Open app‑ads.txt</a>
+          <button id="copyBtn" class="btn accent" type="button">Copy contents</button>
+        </div>
+        <pre id="adsTxtPre" role="region" aria-live="polite">Loading app‑ads.txt…</pre>
+      </section>
+    </div>
+
+    <footer id="footnote"></footer>
+  </div>
+
+  <script>
+    (function () {
+      const policyEl = document.getElementById('policyContainer');
+      const adsPre = document.getElementById('adsTxtPre');
+      const copyBtn = document.getElementById('copyBtn');
+      const foot = document.getElementById('footnote');
+
+      // Load and render privacy policy markdown
+      fetch('./privacy-policy-github.md', { cache: 'no-store' })
+        .then(r => r.ok ? r.text() : Promise.reject(new Error(r.status + ' ' + r.statusText)))
+        .then(md => { policyEl.innerHTML = marked.parse(md); })
+        .catch(err => {
+          policyEl.innerHTML = '<p style="color:#fca5a5">Could not load privacy policy (' + err.message + ').</p>' +
+                               '<p>Open the raw file instead: <a href="./privacy-policy-github.md">privacy-policy-github.md</a></p>';
+        });
+
+      // Load app-ads.txt and show exact contents
+      let adsTxtCache = '';
+      fetch('./app-ads.txt', { cache: 'no-store' })
+        .then(r => r.ok ? r.text() : Promise.reject(new Error(r.status + ' ' + r.statusText)))
+        .then(txt => { adsTxtCache = txt.trim(); adsPre.textContent = adsTxtCache || '(File is empty)'; })
+        .catch(err => {
+          adsPre.textContent = 'Could not load app-ads.txt (' + err.message + '). Make sure it exists at /app-ads.txt';
+        });
+
+      // Copy helper
+      copyBtn.addEventListener('click', async () => {
+        try {
+          if (!adsTxtCache) {
+            adsTxtCache = adsPre.textContent || '';
+          }
+          await navigator.clipboard.writeText(adsTxtCache);
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => copyBtn.textContent = 'Copy contents', 1200);
+        } catch {
+          copyBtn.textContent = 'Copy failed';
+          setTimeout(() => copyBtn.textContent = 'Copy contents', 1200);
+        }
+      });
+
+      // Footnote
+      const d = new Date();
+      foot.textContent = '© ' + d.getFullYear() + ' Brain‑Bites. This page serves the official privacy policy and app‑ads.txt.';
+    })();
+  </script>
+</body>
+</html>
